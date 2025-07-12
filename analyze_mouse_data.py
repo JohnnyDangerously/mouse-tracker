@@ -248,7 +248,7 @@ def analyze_mouse_csv(csv_file_path):
 
 if __name__ == "__main__":
     # Default path from mouse tracker
-    default_csv = os.path.expanduser("~/Documents/MouseLogs/mouse_log.csv")
+    default_csv = os.path.expanduser("~/Documents/MouseLogs/mouse_log_example.csv")
     
     if os.path.exists(default_csv):
         analyzer, smooth, jittery = analyze_mouse_csv(default_csv)
