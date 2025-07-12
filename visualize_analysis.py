@@ -68,7 +68,7 @@ def create_visualizations(analyzer, smooth_events, jittery_events):
 
 def main():
     """Main function to run analysis and create visualizations"""
-    default_csv = os.path.expanduser("~/Documents/MouseLogs/mouse_log.csv")
+    default_csv = os.path.expanduser("~/Documents/MouseLogs/mouse_log_example.csv")
     
     if os.path.exists(default_csv):
         print("Running mouse movement analysis...")
