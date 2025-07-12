@@ -6,7 +6,9 @@ import os
 
 # Settings
 OUTPUT_FILE = os.path.expanduser("~/Documents/MouseLogs/mouse_log.csv")
-HOTKEY_START_STOP = "ctrl+alt+s"
+HOTKEY_START = "ctrl+alt+1"
+HOTKEY_STOP = "ctrl+alt+2"
+HOTKEY_QUIT = "ctrl+alt+q"
 
 # Globals
 recording = False
@@ -40,17 +42,38 @@ def save_log():
         for entry in log_data:
             writer.writerow(entry)
 
-def toggle_recording():
+def start_recording():
     global recording
-    recording = not recording
-    print(f"{'Started' if recording else 'Stopped'} recording.")
     if not recording:
+        recording = True
+        print("Started recording.")
+    else:
+        print("Already recording.")
+
+def stop_recording():
+    global recording
+    if recording:
+        recording = False
+        save_log()
+        print(f"Stopped recording. Saved data to {OUTPUT_FILE}")
+    else:
+        print("Not currently recording.")
+
+def quit_app():
+    global recording
+    if recording:
         save_log()
         print(f"Saved data to {OUTPUT_FILE}")
+    print("Exiting application...")
+    os._exit(0)
 
 def listen_for_hotkey():
-    print(f"Press {HOTKEY_START_STOP} to start/stop recording")
-    keyboard.add_hotkey(HOTKEY_START_STOP, toggle_recording)
+    print(f"Press {HOTKEY_START} to start recording")
+    print(f"Press {HOTKEY_STOP} to stop recording and save")
+    print(f"Press {HOTKEY_QUIT} to quit the application")
+    keyboard.add_hotkey(HOTKEY_START, start_recording)
+    keyboard.add_hotkey(HOTKEY_STOP, stop_recording)
+    keyboard.add_hotkey(HOTKEY_QUIT, quit_app)
     keyboard.wait()  # waits indefinitely
 
 def start_mouse_listener():
